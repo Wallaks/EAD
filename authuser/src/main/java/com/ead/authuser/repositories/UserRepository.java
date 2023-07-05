@@ -10,4 +10,7 @@ import com.ead.authuser.models.UserModel;
 // Esse será um Bean que o Spring gerenciará (não precisa anotar @Bean)
 public interface UserRepository extends JpaRepository<UserModel, UUID> {
 
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
 }
