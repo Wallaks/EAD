@@ -3,6 +3,8 @@ package com.ead.authuser.controllers;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+import com.ead.authuser.dtos.UserDto.UserView;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +30,8 @@ public class AuthenticationController {
 	UserService userservice;
 
 	@PostMapping("signup")
-	public ResponseEntity<Object> registerUser(@RequestBody UserDto userDto) {
+	public ResponseEntity<Object> registerUser(
+			@RequestBody @JsonView({ UserView.RegistrationPost.class }) UserDto userDto) {
 		if (userservice.existsByUsername(userDto.getUsername())) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Username is Already Taken!");
 		}
